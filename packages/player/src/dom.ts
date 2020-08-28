@@ -103,12 +103,13 @@ export async function updateDom(this: PlayerComponent, Record: RecordData) {
 
             // prevent jump too long distance
             const behavior = Math.abs(top - curTop) > window.G_REPLAY_DATA.snapshot.data.height * 3 ? 'auto' : 'smooth'
-            target.scrollTo({
+
+            // use scroll polyfill if browser (e.g. ios safari) not support
+            window.scrollTo.call(target, {
                 top,
                 left,
                 behavior
             })
-
             break
         }
         case RecordType.WINDOW: {
